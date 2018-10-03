@@ -1,1 +1,2 @@
 # TechUt
+Alan Ćwiek
