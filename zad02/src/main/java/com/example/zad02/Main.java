@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             GraphicsCardService gpuService = new GraphicsCardService();
+
         }catch(SQLException e){
             e.printStackTrace();
         }

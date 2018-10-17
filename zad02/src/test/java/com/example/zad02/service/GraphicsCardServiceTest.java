@@ -1,4 +1,4 @@
-package com.example.jdbcdemo.service;
+package com.example.zad02.service;
 
 public class GraphicsCardServiceTest {
 }

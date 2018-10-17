@@ -1,5 +1,7 @@
 package com.example.zad02.service;
 
+import com.example.zad02.domain.GraphicsCard;
+
 import java.sql.*;
 
 public class GraphicsCardService {
@@ -41,7 +43,15 @@ public class GraphicsCardService {
         return connection;
     }
 
-    void clearGraphicsCards() throws SQLException {
+    public void clearGraphicsCards() throws SQLException {
         deleteAllPGraphicsCardsStmt.executeUpdate();
+    }
+
+    public addGraphicsCard(GraphicsCard gpu) throws SQLException {
+        int count = 0;
+        addGraphicsCardStmt.setString(1, gpu.getModel());
+        addGraphicsCardStmt.setString(2, gpu.getProducer());
+        addGraphicsCardStmt.setString(3, gpu.getModel());
+        addGraphicsCardStmt.setString(4, gpu.getProducer());
     }
 }
