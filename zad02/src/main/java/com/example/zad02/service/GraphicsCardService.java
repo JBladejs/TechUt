@@ -34,7 +34,7 @@ public class GraphicsCardService {
 
         addGraphicsCardStmt = connection.prepareStatement("INSERT INTO GraphicsCard(id, model, producer, tflops) VALUES (?, ?, ?, ?)");
         deleteAllPGraphicsCardsStmt = connection.prepareStatement("DELETE FROM GraphicsCard");
-        //getAllGraphicsCardsStmt = connection.prepareStatement("SELECT (id, model, producer, tflops) FROM GraphicsCard");
+        getAllGraphicsCardsStmt = connection.prepareStatement("SELECT id, model, producer, tflops FROM GraphicsCard");
     }
 
     public Connection getConnection() {
