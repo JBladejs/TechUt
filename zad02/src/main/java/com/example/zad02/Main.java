@@ -1,7 +1,7 @@
 package com.example.zad02;
 
 import com.example.zad02.domain.GraphicsCard;
-import com.example.zad02.service.GraphicsCardService;
+import com.example.zad02.service.GraphicsCardManagerJDBC;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         try {
-            GraphicsCardService gpuService = new GraphicsCardService();
+            GraphicsCardManagerJDBC gpuService = new GraphicsCardManagerJDBC();
             gpuService.clearGraphicsCards();
             GraphicsCard gpu1 = new GraphicsCard(1080, "Nvidia", 9.0, 2714.74f);
             List<GraphicsCard> newGraphicsCards=new ArrayList<>();

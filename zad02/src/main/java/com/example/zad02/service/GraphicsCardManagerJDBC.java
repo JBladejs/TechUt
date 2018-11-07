@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraphicsCardService {
+public class GraphicsCardManagerJDBC implements GraphicsCardManager{
 
     private final String URL = "jdbc:hsqldb:hsql://localhost/workdb";
 
@@ -20,7 +20,7 @@ public class GraphicsCardService {
     private PreparedStatement getAllGraphicsCardsStmt;
 
 
-    public GraphicsCardService() throws SQLException {
+    public GraphicsCardManagerJDBC() throws SQLException {
         connection = DriverManager.getConnection(URL);
         statement = connection.createStatement();
 
@@ -49,34 +49,46 @@ public class GraphicsCardService {
         deleteAllGraphicsCardsStmt.executeUpdate();
     }
 
-    public int addGraphicsCard(GraphicsCard gpu) throws SQLException {
-        addGraphicsCardStmt.setString(1, Integer.toString(gpu.getModel()));
-        addGraphicsCardStmt.setString(2, gpu.getProducer());
-        addGraphicsCardStmt.setString(3, Double.toString(gpu.getTflops()));
-        addGraphicsCardStmt.setString(4, Float.toString(gpu.getPrice()));
+    @Override
+    public int addGraphicsCard(GraphicsCard gpu){
+        try {
+            addGraphicsCardStmt.setString(1, Integer.toString(gpu.getModel()));
+            addGraphicsCardStmt.setString(2, gpu.getProducer());
+            addGraphicsCardStmt.setString(3, Double.toString(gpu.getTflops()));
+            addGraphicsCardStmt.setString(4, Float.toString(gpu.getPrice()));
 
-        return addGraphicsCardStmt.executeUpdate();
+            return addGraphicsCardStmt.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 
-    public List<GraphicsCard> getAllGraphicsCards() throws SQLException{
+    @Override
+    public List<GraphicsCard> getAllGraphicsCards(){
         List<GraphicsCard> graphicsCards = new ArrayList<>();
-        ResultSet rs = getAllGraphicsCardsStmt.executeQuery();
+        try {
+            ResultSet rs = getAllGraphicsCardsStmt.executeQuery();
 
-        while (rs.next()){
-            GraphicsCard gpu = new GraphicsCard();
+            while (rs.next()) {
+                GraphicsCard gpu = new GraphicsCard();
 
-            gpu.setId(rs.getInt("id"));
-            gpu.setModel(rs.getInt("model"));
-            gpu.setProducer(rs.getString("producer"));
-            gpu.setTflops(rs.getDouble("tflops"));
-            gpu.setPrice(rs.getFloat("price"));
+                gpu.setId(rs.getInt("id"));
+                gpu.setModel(rs.getInt("model"));
+                gpu.setProducer(rs.getString("producer"));
+                gpu.setTflops(rs.getDouble("tflops"));
+                gpu.setPrice(rs.getFloat("price"));
 
-            graphicsCards.add(gpu);
+                graphicsCards.add(gpu);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
         }
 
         return graphicsCards;
     }
 
+    @Override
     public void addAllGraphicsCards(List<GraphicsCard> persons) {
 
         try {
