@@ -3,18 +3,20 @@ package com.example.zad02.domain;
 public class GraphicsCard {
     private long id;
 
-    private String model;
+    private int model;
     private String producer;
     private double tflops;
+    private float price;
 
     public GraphicsCard(){
     }
 
-    public GraphicsCard(String model, String producer, double tflops){
+    public GraphicsCard(int model, String producer, double tflops, float price){
         super();
         this.model=model;
         this.producer=producer;
         this.tflops=tflops;
+        this.price=price;
     }
 
 
@@ -26,11 +28,11 @@ public class GraphicsCard {
         this.id = id;
     }
 
-    public String getModel() {
+    public int getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(int model) {
         this.model = model;
     }
 
@@ -48,5 +50,13 @@ public class GraphicsCard {
 
     public void setTflops(double tflops) {
         this.tflops = tflops;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 }
