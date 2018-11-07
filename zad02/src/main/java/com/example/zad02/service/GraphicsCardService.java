@@ -77,4 +77,29 @@ public class GraphicsCardService {
         return graphicsCards;
     }
 
+    public void addAllGraphicsCards(List<GraphicsCard> persons) {
+
+        try {
+            connection.setAutoCommit(false);
+            for (GraphicsCard gpu : persons) {
+                addGraphicsCardStmt.setString(1, Integer.toString(gpu.getModel()));
+                addGraphicsCardStmt.setString(2, gpu.getProducer());
+                addGraphicsCardStmt.setString(3, Double.toString(gpu.getTflops()));
+                addGraphicsCardStmt.setString(4, Float.toString(gpu.getPrice()));
+
+                addGraphicsCardStmt.executeUpdate();
+            }
+            connection.commit();
+
+        } catch (SQLException exception) {
+
+            try {
+                connection.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }
