@@ -12,17 +12,6 @@ public class GraphicsCard {
     private double tflops;
     private float price;
 
-    public GraphicsCard(){
-    }
-
-    public GraphicsCard(int model, String producer, double tflops, float price){
-        super();
-        this.model=model;
-        this.producer=producer;
-        this.tflops=tflops;
-        this.price=price;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
