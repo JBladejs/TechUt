@@ -1,10 +1,16 @@
 package com.bladejs.zad04.domain;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 public class CEO {
     private long id;
     private String firstName;
     private String lastName;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }

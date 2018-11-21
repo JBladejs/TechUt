@@ -8,7 +8,7 @@ public class GraphicsCard {
     private long id;
 
     private int model;
-    private String producer;
+    private Producer producer;
     private double tflops;
     private float price;
 
@@ -28,12 +28,7 @@ public class GraphicsCard {
         this.model = model;
     }
 
-    public String getProducer() {
-        return producer;
-    }
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
+
 
     public double getTflops() {
         return tflops;
@@ -47,5 +42,13 @@ public class GraphicsCard {
     }
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
     }
 }
