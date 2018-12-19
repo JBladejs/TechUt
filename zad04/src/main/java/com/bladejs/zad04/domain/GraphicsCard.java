@@ -1,5 +1,6 @@
 package com.bladejs.zad04.domain;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -7,7 +8,7 @@ import javax.persistence.Id;
 public class GraphicsCard {
     private long id;
 
-    private int model;
+    private String model;
     private double tflops;
     private float price;
 
@@ -20,10 +21,11 @@ public class GraphicsCard {
         this.id = id;
     }
 
-    public int getModel() {
+    @Column(unique=true, nullable = false)
+    public String getModel() {
         return model;
     }
-    public void setModel(int model) {
+    public void setModel(String model) {
         this.model = model;
     }
 
