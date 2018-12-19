@@ -7,6 +7,7 @@ public class Producer {
     private String name;
     private String country;
     private CEO ceo;
+    private GraphicsCard gpu;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,11 +32,20 @@ public class Producer {
         this.country = country;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public CEO getCeo() {
         return ceo;
     }
     public void setCeo(CEO ceo) {
         this.ceo = ceo;
     }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public GraphicsCard getGpu() {
+        return gpu;
+    }
+    public void setGpu(GraphicsCard gpu) {
+        this.gpu = gpu;
+    }
+
 }
