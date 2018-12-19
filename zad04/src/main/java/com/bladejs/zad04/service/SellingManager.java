@@ -14,6 +14,6 @@ public interface SellingManager {
     CEO findCEObyProducer(Producer producer);
 
     void addNewGraphicsCard(GraphicsCard gpu);
-    List<GraphicsCard> getAvailableCars();
+    List<GraphicsCard> getAvailableGraphicsCards();
     void sellGraphicsCard(Client client, GraphicsCard gpu);
 }
