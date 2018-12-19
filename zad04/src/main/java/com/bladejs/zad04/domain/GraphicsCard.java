@@ -21,7 +21,7 @@ public class GraphicsCard {
         this.id = id;
     }
 
-    @Column(unique=true, nullable = false)
+    @Column(nullable = false)
     public String getModel() {
         return model;
     }

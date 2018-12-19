@@ -18,6 +18,7 @@ public class Producer {
         this.id = id;
     }
 
+    @Column(unique=true, nullable=false)
     public String getName() {
         return name;
     }

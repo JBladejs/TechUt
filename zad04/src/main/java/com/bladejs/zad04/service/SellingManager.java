@@ -1,6 +1,7 @@
 package com.bladejs.zad04.service;
 
 import com.bladejs.zad04.domain.CEO;
+import com.bladejs.zad04.domain.Client;
 import com.bladejs.zad04.domain.GraphicsCard;
 import com.bladejs.zad04.domain.Producer;
 
@@ -14,5 +15,5 @@ public interface SellingManager {
 
     void addNewGraphicsCard(GraphicsCard gpu);
     List<GraphicsCard> getAvailableCars();
-    void sellGraphicsCard();
+    void sellGraphicsCard(Client client, GraphicsCard gpu);
 }
