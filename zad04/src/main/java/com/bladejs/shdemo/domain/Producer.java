@@ -1,4 +1,4 @@
-package com.bladejs.zad04.domain;
+package com.bladejs.shdemo.domain;
 
 import javax.persistence.*;
 

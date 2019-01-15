@@ -1,9 +1,9 @@
-package com.bladejs.zad04.service;
+package com.bladejs.shdemo.service;
 
-import com.bladejs.zad04.domain.CEO;
-import com.bladejs.zad04.domain.Client;
-import com.bladejs.zad04.domain.GraphicsCard;
-import com.bladejs.zad04.domain.Producer;
+import com.bladejs.shdemo.domain.CEO;
+import com.bladejs.shdemo.domain.Client;
+import com.bladejs.shdemo.domain.GraphicsCard;
+import com.bladejs.shdemo.domain.Producer;
 
 import java.util.List;
 
