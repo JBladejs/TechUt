@@ -9,7 +9,7 @@ import java.util.List;
 public interface SellingManager {
     void addGraphicsCard(GraphicsCard gpu);
     void deleteGraphicsCard(GraphicsCard gpu);
-    List<GraphicsCard> getAvailableCards();
+    List<GraphicsCard> getAvailableGraphicsCards();
     GraphicsCard findGraphicsCardByModel(String model);
     GraphicsCard findGraphicsCardById(Long id);
 

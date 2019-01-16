@@ -1,6 +1,7 @@
 package com.example.shdemo.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +16,7 @@ public class Producer {
     private String name;
     private String country="unknown";
     @ManyToMany
-    private List<Executive> executives;
+    private List<Executive> executives = new ArrayList<Executive>();
 
     public long getId() {
         return id;

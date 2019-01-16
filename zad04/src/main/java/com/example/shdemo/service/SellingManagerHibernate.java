@@ -28,7 +28,10 @@ public class SellingManagerHibernate implements  SellingManager{
 
     @Override
     public void addGraphicsCard(GraphicsCard gpu) {
+        GraphicsCardInfo gpuInfo = gpu.getGraphicsCardInfo();
         gpu.setId(null);
+        gpuInfo.setId(null);
+        sessionFactory.getCurrentSession().persist(gpuInfo);
         sessionFactory.getCurrentSession().persist(gpu);
 }
 
@@ -37,13 +40,13 @@ public class SellingManagerHibernate implements  SellingManager{
         gpu = (GraphicsCard) sessionFactory.getCurrentSession().get(GraphicsCard.class, gpu.getId());
         GraphicsCardInfo gpuInfo = (GraphicsCardInfo) sessionFactory.getCurrentSession().get(GraphicsCardInfo.class, gpu.getGraphicsCardInfo().getId());
 
-        sessionFactory.getCurrentSession().delete(gpuInfo);
         sessionFactory.getCurrentSession().delete(gpu);
+        sessionFactory.getCurrentSession().delete(gpuInfo);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<GraphicsCard> getAvailableCards() {
+    public List<GraphicsCard> getAvailableGraphicsCards() {
         return sessionFactory.getCurrentSession().getNamedQuery("graphicsCard.available").list();
     }
 

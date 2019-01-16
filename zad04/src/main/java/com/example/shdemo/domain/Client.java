@@ -1,6 +1,7 @@
 package com.example.shdemo.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,22 +11,17 @@ import java.util.List;
         @NamedQuery(name = "client.byLogin", query = "Select c from Client c where c.login = :login")
 })
 public class Client {
-
-    public Client(){
-        this.registrationDate = new Date();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true, nullable = false)
     private String login;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<GraphicsCard> graphicsCards;
+    private List<GraphicsCard> graphicsCards = new ArrayList<GraphicsCard>();
     private String firstName="unknown";
     private String lastName="unknown";
     @Temporal(TemporalType.DATE)
-    private Date registrationDate;
+    private Date registrationDate = new Date();
 
     public long getId() {
         return id;

@@ -2,6 +2,7 @@ package com.example.shdemo.service;
 
 import com.example.shdemo.domain.Client;
 import com.example.shdemo.domain.GraphicsCard;
+import com.example.shdemo.domain.GraphicsCardInfo;
 import com.example.shdemo.domain.Producer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,11 +30,12 @@ public class SellingManagerTest {
     private final String LAST_NAME_1 = "Testowany";
 
     private final String LOGIN_2 = "MyLogin";
-    private final String LAST_NAME_2 = "Kowalski";
 
     private final String MODEL_1 = "GTX 750 Ti";
     private final double T_FLOPS_1 = 1.728;
 
+    private final String MODEL_2 = "RTX 2080 Ti";
+    private final String MODEL_3 = "Radeon Vega 56";
 
     @Test
     public void addGraphicsCardTest(){
@@ -49,6 +51,68 @@ public class SellingManagerTest {
         assertEquals(MODEL_1, retrievedGpu.getGraphicsCardInfo().getModel());
         assertEquals(retrievedGpu.getGraphicsCardInfo().getTflops(), T_FLOPS_1, 0.0);
         assertFalse(retrievedGpu.isSold());
+    }
+
+    @Test
+    public void deleteGraphicsCardTest(){
+        GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+        if (gpu!=null)
+            sellingManager.deleteGraphicsCard(gpu);
+
+        gpu = new GraphicsCard(MODEL_2);
+        sellingManager.addGraphicsCard(gpu);
+
+        assertEquals(MODEL_2, sellingManager.findGraphicsCardById(gpu.getId()).getGraphicsCardInfo().getModel());
+
+        sellingManager.deleteGraphicsCard(gpu);
+        assertNull(sellingManager.findClientById(gpu.getId()));
+    }
+
+    @Test
+    public void getAvailableGraphicsCardsTest(){
+        List<GraphicsCard> retrievedGpus = sellingManager.getAvailableGraphicsCards();
+
+        for(GraphicsCard gpu : retrievedGpus){
+            sellingManager.deleteGraphicsCard(gpu);
+        }
+        assertEquals(0, sellingManager.getAvailableGraphicsCards().size());
+
+        GraphicsCard g1 = new GraphicsCard(MODEL_1);
+        GraphicsCard g2 = new GraphicsCard(MODEL_2);
+        GraphicsCard g3 = new GraphicsCard(MODEL_3);
+        g2.setSold(true);
+
+        sellingManager.addGraphicsCard(g1);
+        sellingManager.addGraphicsCard(g2);
+        sellingManager.addGraphicsCard(g3);
+
+        retrievedGpus = sellingManager.getAvailableGraphicsCards();
+        assertEquals(2, retrievedGpus.size());
+        assertEquals(MODEL_1, retrievedGpus.get(0).getGraphicsCardInfo().getModel());
+        assertEquals(MODEL_3, retrievedGpus.get(1).getGraphicsCardInfo().getModel());
+    }
+
+    @Test
+    public void findGraphicsCardByModelTest(){
+        GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+        if (gpu!=null)
+            sellingManager.deleteGraphicsCard(gpu);
+
+        gpu = new GraphicsCard(MODEL_1);
+
+        sellingManager.addGraphicsCard(gpu);
+        assertEquals(gpu, sellingManager.findGraphicsCardByModel(MODEL_1));
+    }
+
+    @Test
+    public void findGraphicsCardByIdTest(){
+        GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+        if (gpu!=null)
+            sellingManager.deleteGraphicsCard(gpu);
+        gpu = new GraphicsCard(MODEL_1);
+
+        sellingManager.addGraphicsCard(gpu);
+        assertEquals(gpu, sellingManager.findGraphicsCardById(gpu.getId()));
     }
 
     @Test
@@ -72,19 +136,27 @@ public class SellingManagerTest {
 
     @Test
     public void deleteClientTest() {
-        //to test further
+        GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+        if (gpu!=null)
+            sellingManager.deleteGraphicsCard(gpu);
         Client client = sellingManager.findClientByLogin(LOGIN_1);
         if (client!=null)
             sellingManager.deleteClient(client);
 
         client = new Client();
         client.setLogin(LOGIN_1);
+        gpu = new GraphicsCard(MODEL_3);
+        gpu.setSold(true);
+        client.getGraphicsCards().add(gpu);
 
         sellingManager.addClient(client);
+        sellingManager.addGraphicsCard(gpu);
         assertEquals(LOGIN_1, sellingManager.findClientById(client.getId()).getLogin());
+        assertTrue(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
 
         sellingManager.deleteClient(client);
         assertNull(sellingManager.findClientById(client.getId()));
+        assertFalse(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
     }
 
     @Test
@@ -101,7 +173,6 @@ public class SellingManagerTest {
         c1.setLastName(LAST_NAME_1);
         Client c2 = new Client();
         c2.setLogin(LOGIN_2);
-        c2.setLastName(LAST_NAME_2);
 
         sellingManager.addClient(c1);
         sellingManager.addClient(c2);
@@ -111,7 +182,6 @@ public class SellingManagerTest {
         assertEquals(LOGIN_1, retrievedClients.get(0).getLogin());
         assertEquals(LOGIN_2, retrievedClients.get(1).getLogin());
         assertEquals(LAST_NAME_1, retrievedClients.get(0).getLastName());
-        assertEquals(LAST_NAME_2, retrievedClients.get(1).getLastName());
     }
 
     @Test
