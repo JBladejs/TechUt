@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static junit.framework.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/beans.xml" })
@@ -31,6 +30,26 @@ public class SellingManagerTest {
 
     private final String LOGIN_2 = "MyLogin";
     private final String LAST_NAME_2 = "Kowalski";
+
+    private final String MODEL_1 = "GTX 750 Ti";
+    private final double T_FLOPS_1 = 1.728;
+
+
+    @Test
+    public void addGraphicsCardTest(){
+        GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+        if (gpu!=null)
+            sellingManager.deleteGraphicsCard(gpu);
+
+        gpu = new GraphicsCard(MODEL_1, T_FLOPS_1);
+        sellingManager.addGraphicsCard(gpu);
+
+        GraphicsCard retrievedGpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+
+        assertEquals(MODEL_1, retrievedGpu.getGraphicsCardInfo().getModel());
+        assertEquals(retrievedGpu.getGraphicsCardInfo().getTflops(), T_FLOPS_1, 0.0);
+        assertFalse(retrievedGpu.isSold());
+    }
 
     @Test
     public void addClientTest(){
@@ -110,19 +129,19 @@ public class SellingManagerTest {
 
     @Test
     public void findClientByIdTest(){
-        Client client = sellingManager.findClientByLogin(LOGIN_1);
+        Client client = sellingManager.findClientByLogin(LOGIN_2);
         if (client!=null)
             sellingManager.deleteClient(client);
 
         client = new Client();
-        client.setLogin(LOGIN_1);
+        client.setLogin(LOGIN_2);
 
         sellingManager.addClient(client);
         assertEquals(client, sellingManager.findClientById(client.getId()));
     }
-//
-//    @Test
-//    public void sellGraphicsCardTest{
-//
-//    }
+
+    @Test
+    public void sellGraphicsCardTest(){
+
+    }
 }
