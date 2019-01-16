@@ -40,6 +40,11 @@ public class SellingManagerTest {
     private final String MODEL_3 = "Radeon Vega 56";
 
     @Test
+    public void addProducerTest(){
+
+    }
+
+    @Test
     public void addGraphicsCardTest(){
         GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
         if (gpu!=null)
@@ -228,7 +233,7 @@ public class SellingManagerTest {
         assertTrue(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
 
         sellingManager.takeBackGraphicsCard(gpu, client);
-        
+
         assertEquals(0, client.getGraphicsCards().size());
         assertFalse(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
     }
