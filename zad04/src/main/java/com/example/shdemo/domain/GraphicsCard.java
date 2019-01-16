@@ -10,6 +10,10 @@ import javax.persistence.*;
 
 public class GraphicsCard {
 
+    GraphicsCard(Producer producer, String model){
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

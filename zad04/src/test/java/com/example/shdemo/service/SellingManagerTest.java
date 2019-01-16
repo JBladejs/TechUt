@@ -1,6 +1,7 @@
 package com.example.shdemo.service;
 
 import com.example.shdemo.domain.Client;
+import com.example.shdemo.domain.GraphicsCard;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,20 @@ public class SellingManagerTest {
     private final String LOGIN_2 = "MyLogin";
     private final String LAST_NAME_2 = "Kowalski";
 
-
-    @Test
-    public void distributionManagerTest() {
-        assertNotNull(sellingManager);
-    }
+//    @Test
+//    public void  addGraphicsCardTest(){
+//        GraphicsCard gpu = new GraphicsCard();
+//        gpu.setLastName(LAST_NAME_1);
+//        gpu.setLogin(LOGIN_1);
+//
+//        sellingManager.addClient(gpu);
+//
+//        Client retrievedClient = sellingManager.findClientByLogin(LOGIN_1);
+//
+//        assertEquals("unknown", retrievedClient.getFirstName());
+//        assertEquals(LAST_NAME_1, retrievedClient.getLastName());
+//        assertEquals(LOGIN_1, retrievedClient.getLogin());
+//    }
 
     @Test
     public void addClientTest(){

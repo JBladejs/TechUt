@@ -3,9 +3,6 @@ package com.example.shdemo.domain;
 import javax.persistence.*;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "graphicsCardInfo.all", query = "Select m from GraphicsCardInfo m")
-})
 public class GraphicsCardInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

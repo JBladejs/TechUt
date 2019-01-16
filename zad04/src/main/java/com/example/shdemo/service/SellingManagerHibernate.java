@@ -27,10 +27,32 @@ public class SellingManagerHibernate implements  SellingManager{
     }
 
     @Override
+    public void addProducer(Producer producer) {
+        producer.setId(null);
+        sessionFactory.getCurrentSession().persist(producer);
+    }
+
+    @Override
+    public void deleteProducer(Producer producer) {
+        producer = (Producer) sessionFactory.getCurrentSession().get(Producer.class, producer.getId());
+        sessionFactory.getCurrentSession().delete(producer);
+    }
+
+    @Override
+    public List<Producer> getAllProducers() {
+        return null;
+    }
+
+    @Override
+    public Producer findProducerById(Long id) {
+        return null;
+    }
+
+    @Override
     public void addGraphicsCard(GraphicsCard gpu) {
         gpu.setId(null);
         sessionFactory.getCurrentSession().persist(gpu);
-    }
+}
 
     @Override
     public void deleteGraphicsCard(GraphicsCard gpu) {
