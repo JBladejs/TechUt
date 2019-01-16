@@ -24,4 +24,7 @@ public interface SellingManager {
     Client findClientByLogin(String login);
     Client findClientById(Long id);
 
+    void sellGraphicsCard(Long gpuId, Long clientId);
+    void takeBackGraphicsCard(GraphicsCard gpu, Client client);
+
 }

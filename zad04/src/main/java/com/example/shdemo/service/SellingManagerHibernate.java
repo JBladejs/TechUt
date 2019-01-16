@@ -116,5 +116,32 @@ public class SellingManagerHibernate implements  SellingManager{
         return (Client) sessionFactory.getCurrentSession().get(Client.class, id);
     }
 
+    @Override
+    public void sellGraphicsCard( Long gpuId, Long clientId) {
+        Client client = (Client) sessionFactory.getCurrentSession().get(Client.class, clientId);
+        GraphicsCard gpu = (GraphicsCard) sessionFactory.getCurrentSession().get(GraphicsCard.class, gpuId);
+        gpu.setSold(true);
+        client.getGraphicsCards().add(gpu);
+    }
+
+    @Override
+    public void takeBackGraphicsCard(GraphicsCard gpu, Client client) {
+        client = (Client) sessionFactory.getCurrentSession().get(Client.class, client.getId());
+        gpu = (GraphicsCard) sessionFactory.getCurrentSession().get(GraphicsCard.class, gpu.getId());
+
+        GraphicsCard toRemove = null;
+
+        for(GraphicsCard graphicsCard: client.getGraphicsCards()){
+            if(graphicsCard.getId() == (gpu.getId())){
+                toRemove = graphicsCard;
+                break;
+            }
+        }
+
+        if(toRemove != null)
+            client.getGraphicsCards().remove(toRemove);
+        gpu.setSold(false);
+    }
+
 
 }
