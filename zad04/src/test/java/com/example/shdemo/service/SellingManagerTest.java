@@ -32,110 +32,6 @@ public class SellingManagerTest {
     private final String LOGIN_2 = "MyLogin";
     private final String LAST_NAME_2 = "Kowalski";
 
-//    @Test
-//    public void addProducerTest(){
-//        Producer client = sellingManager.findClientByLogin(LOGIN_1);
-//        if (client!=null)
-//            sellingManager.deleteClient(client);
-//
-//        client = new Producer();
-//        client.setLastName(LAST_NAME_1);
-//        client.setLogin(LOGIN_1);
-//
-//        sellingManager.addClient(client);
-//
-//        Producer retrievedClient = sellingManager.findClientByLogin(LOGIN_1);
-//
-//        assertEquals("unknown", retrievedClient.getFirstName());
-//        assertEquals(LAST_NAME_1, retrievedClient.getLastName());
-//        assertEquals(LOGIN_1, retrievedClient.getLogin());
-//    }
-
-//    @Test
-////    public void deleteClientTest() {
-////        //to test further
-////        Client client = sellingManager.findClientByLogin(LOGIN_1);
-////        if (client!=null)
-////            sellingManager.deleteClient(client);
-////
-////        client = new Client();
-////        client.setLogin(LOGIN_1);
-////
-////        sellingManager.addClient(client);
-////        assertEquals(LOGIN_1, sellingManager.findClientById(client.getId()).getLogin());
-////
-////        sellingManager.deleteClient(client);
-////        assertNull(sellingManager.findClientById(client.getId()));
-////    }
-////
-////    @Test
-////    public void getAllClientsTest(){
-////        List<Client> retrievedClients = sellingManager.getAllClients();
-////
-////        for(Client client : retrievedClients){
-////            sellingManager.deleteClient(client);
-////        }
-////        assertEquals(0, sellingManager.getAllClients().size());
-////
-////        Client c1 = new Client();
-////        c1.setLogin(LOGIN_1);
-////        c1.setLastName(LAST_NAME_1);
-////        Client c2 = new Client();
-////        c2.setLogin(LOGIN_2);
-////        c2.setLastName(LAST_NAME_2);
-////
-////        sellingManager.addClient(c1);
-////        sellingManager.addClient(c2);
-////
-////        retrievedClients = sellingManager.getAllClients();
-////        assertEquals(2, retrievedClients.size());
-////        assertEquals(LOGIN_1, retrievedClients.get(0).getLogin());
-////        assertEquals(LOGIN_2, retrievedClients.get(1).getLogin());
-////        assertEquals(LAST_NAME_1, retrievedClients.get(0).getLastName());
-////        assertEquals(LAST_NAME_2, retrievedClients.get(1).getLastName());
-////    }
-////
-////    @Test
-////    public void findClientByLoginTest(){
-////        Client client = sellingManager.findClientByLogin(LOGIN_1);
-////        if (client!=null)
-////            sellingManager.deleteClient(client);
-////
-////        client = new Client();
-////        client.setLogin(LOGIN_1);
-////
-////        sellingManager.addClient(client);
-////        assertEquals(client, sellingManager.findClientByLogin(LOGIN_1));
-////    }
-////
-////    @Test
-////    public void findClientByIdTest(){
-////        Client client = sellingManager.findClientByLogin(LOGIN_1);
-////        if (client!=null)
-////            sellingManager.deleteClient(client);
-////
-////        client = new Client();
-////        client.setLogin(LOGIN_1);
-////
-////        sellingManager.addClient(client);
-////        assertEquals(client, sellingManager.findClientById(client.getId()));
-////    }
-
-//    @Test
-//    public void  addGraphicsCardTest(){
-//        GraphicsCard gpu = new GraphicsCard();
-//        gpu.setLastName(LAST_NAME_1);
-//        gpu.setLogin(LOGIN_1);
-//
-//        sellingManager.addClient(gpu);
-//
-//        Client retrievedClient = sellingManager.findClientByLogin(LOGIN_1);
-//
-//        assertEquals("unknown", retrievedClient.getFirstName());
-//        assertEquals(LAST_NAME_1, retrievedClient.getLastName());
-//        assertEquals(LOGIN_1, retrievedClient.getLogin());
-//    }
-
     @Test
     public void addClientTest(){
         Client client = sellingManager.findClientByLogin(LOGIN_1);
@@ -224,4 +120,9 @@ public class SellingManagerTest {
         sellingManager.addClient(client);
         assertEquals(client, sellingManager.findClientById(client.getId()));
     }
+//
+//    @Test
+//    public void sellGraphicsCardTest{
+//
+//    }
 }

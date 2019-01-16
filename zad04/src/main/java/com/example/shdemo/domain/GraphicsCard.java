@@ -10,8 +10,12 @@ import javax.persistence.*;
 
 public class GraphicsCard {
 
-    GraphicsCard(Producer producer, String model){
+    public GraphicsCard(String model, Double tFlops){
+        this.graphicsCardInfo = new GraphicsCardInfo(model, tFlops);
+    }
 
+    public GraphicsCard(String model){
+        this.graphicsCardInfo = new GraphicsCardInfo(model);
     }
 
     @Id

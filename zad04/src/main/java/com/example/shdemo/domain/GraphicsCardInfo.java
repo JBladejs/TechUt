@@ -4,14 +4,24 @@ import javax.persistence.*;
 
 @Entity
 public class GraphicsCardInfo {
+
+    GraphicsCardInfo(String model, Double tFlops){
+        this.model = model;
+        this.tFlops = tFlops;
+    }
+
+    GraphicsCardInfo(String model){
+        this.model = model;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private double tFlops;
+    private Double tFlops;
     @Column(unique = true, nullable = false)
     private String model;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
     public void setId(Long id) {
@@ -21,7 +31,7 @@ public class GraphicsCardInfo {
     public double getTflops() {
         return tFlops;
     }
-    public void setTflops(double tflops) {
+    public void setTflops(Double tflops) {
         this.tFlops = tflops;
     }
 
