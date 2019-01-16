@@ -32,7 +32,9 @@ public interface SellingManager {
     Client findClientById(Long id);
 
     void sellGraphicsCard(Long gpuId, Long clientId);
+    void sellGraphicsCard(GraphicsCard gpu, Client client);
     void takeBackGraphicsCard(GraphicsCard gpu, Client client);
+    void takeBackGraphicsCard(Long gpuId, Long clientId);
 
 
 }

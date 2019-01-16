@@ -407,4 +407,31 @@ public class SellingManagerTest {
         assertEquals(0, client.getGraphicsCards().size());
         assertFalse(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
     }
+
+    @Test
+    public void sellAndTakeBackGraphicsCardTest2(){
+        GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
+        if (gpu!=null)
+            sellingManager.deleteGraphicsCard(gpu);
+        Client client = sellingManager.findClientByLogin(LOGIN_1);
+        if (client!=null)
+            sellingManager.deleteClient(client);
+
+        gpu = new GraphicsCard(MODEL_1);
+        client = new Client(LOGIN_1);
+
+        sellingManager.addGraphicsCard(gpu);
+        sellingManager.addClient(client);
+
+        sellingManager.sellGraphicsCard(gpu, client);
+
+        assertEquals(1, client.getGraphicsCards().size());
+        assertEquals(gpu, sellingManager.findClientById(client.getId()).getGraphicsCards().get(0));
+        assertTrue(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
+
+        sellingManager.takeBackGraphicsCard(gpu.getId(), client.getId());
+
+        assertEquals(0, client.getGraphicsCards().size());
+        assertFalse(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
+    }
 }
