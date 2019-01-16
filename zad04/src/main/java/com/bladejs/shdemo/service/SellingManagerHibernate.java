@@ -39,6 +39,7 @@ public class SellingManagerHibernate implements  SellingManager{
         client = (Client) sessionFactory.getCurrentSession().get(Client.class, client.getId());
 
         //to add removing client's owned gpu's
+        sessionFactory.getCurrentSession().delete(client);
     }
 
     @Override
