@@ -13,8 +13,6 @@ public class GraphicsCardInfo {
     private double tFlops;
     @Column(unique = true, nullable = false)
     private String model;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Producer producer;
 
     public Long getId() {
         return id;
@@ -35,12 +33,5 @@ public class GraphicsCardInfo {
     }
     public void setModel(String model) {
         this.model = model;
-    }
-
-    public Producer getProducer() {
-        return producer;
-    }
-    public void setProducer(Producer producer) {
-        this.producer = producer;
     }
 }
