@@ -42,6 +42,55 @@ public class SellingManagerTest {
     private final String COUNTRY_1 = "United States";
 
     @Test
+    public void addExecutiveTest(){
+        int size = sellingManager.getAllExecutives().size();
+
+        Executive exec = new Executive(FIRST_NAME_1, LAST_NAME_1);
+        sellingManager.addExecutive(exec);
+
+        List<Executive> receivedExecutives = sellingManager.getAllExecutives();
+
+        assertEquals(size+1, receivedExecutives.size());
+        assertEquals(FIRST_NAME_1, receivedExecutives.get(size).getFirstName());
+        assertEquals(LAST_NAME_1, receivedExecutives.get(size).getLastName());
+    }
+
+    @Test
+    public void deleteExecutiveTest(){
+        Executive exec = new Executive(FIRST_NAME_1, LAST_NAME_1);
+        sellingManager.addExecutive(exec);
+
+        int size = sellingManager.getAllExecutives().size();
+
+        sellingManager.deleteExecutive(exec);
+
+        assertEquals(size-1, sellingManager.getAllExecutives().size());
+    }
+
+    @Test
+    public void getAllExecutivesTest(){
+        Executive e1 = new Executive(FIRST_NAME_1, LAST_NAME_1);
+        Executive e2 = new Executive(FIRST_NAME_2, LAST_NAME_2);
+        sellingManager.addExecutive(e1);
+        sellingManager.addExecutive(e2);
+
+        List<Executive> receivedExecutives = sellingManager.getAllExecutives();
+        int size = receivedExecutives.size();
+
+        assertEquals(FIRST_NAME_2, receivedExecutives.get(size-1).getFirstName());
+        assertEquals(LAST_NAME_2, receivedExecutives.get(size-1).getLastName());
+        assertEquals(FIRST_NAME_1, receivedExecutives.get(size-2).getFirstName());
+        assertEquals(LAST_NAME_1, receivedExecutives.get(size-2).getLastName());
+    }
+
+    @Test
+    public void findExecutiveByIdTest(){
+        Executive exec = new Executive(FIRST_NAME_1, LAST_NAME_1);
+        sellingManager.addExecutive(exec);
+        assertEquals(exec, sellingManager.findExecutiveById(exec.getId()));
+    }
+
+    @Test
     public void addProducerTest(){
         List<Producer> receivedProducers = sellingManager.getAllProducers();
         for (Producer producer: receivedProducers) {
