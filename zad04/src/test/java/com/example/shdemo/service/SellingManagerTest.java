@@ -4,9 +4,11 @@ import com.example.shdemo.domain.Client;
 import com.example.shdemo.domain.GraphicsCard;
 import com.example.shdemo.domain.GraphicsCardInfo;
 import com.example.shdemo.domain.Producer;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -149,14 +151,14 @@ public class SellingManagerTest {
         gpu.setSold(true);
         client.getGraphicsCards().add(gpu);
 
+        sellingManager.addGraphicsCard(gpu); 
         sellingManager.addClient(client);
-        sellingManager.addGraphicsCard(gpu);
         assertEquals(LOGIN_1, sellingManager.findClientById(client.getId()).getLogin());
         assertTrue(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
 
         sellingManager.deleteClient(client);
         assertNull(sellingManager.findClientById(client.getId()));
-        assertFalse(sellingManager.findGraphicsCardById(gpu.getId()).isSold());
+        assertFalse(gpu.isSold());
     }
 
     @Test

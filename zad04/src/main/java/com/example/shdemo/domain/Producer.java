@@ -15,7 +15,7 @@ public class Producer {
     @Column(unique=true, nullable=false)
     private String name;
     private String country="unknown";
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Executive> executives = new ArrayList<Executive>();
 
     public long getId() {

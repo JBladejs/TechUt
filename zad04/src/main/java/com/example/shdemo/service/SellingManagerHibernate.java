@@ -71,10 +71,8 @@ public class SellingManagerHibernate implements  SellingManager{
         client = (Client) sessionFactory.getCurrentSession().get(Client.class, client.getId());
 
         List<GraphicsCard> ownedGpus = client.getGraphicsCards();
-        if(ownedGpus!=null) {
-            for (GraphicsCard gpu : ownedGpus) {
-                gpu.setSold(false);
-            }
+        for (GraphicsCard gpu : ownedGpus) {
+            gpu.setSold(false);
         }
         sessionFactory.getCurrentSession().delete(client);
     }
