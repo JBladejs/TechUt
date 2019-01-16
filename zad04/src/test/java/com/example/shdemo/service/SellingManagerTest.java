@@ -34,8 +34,6 @@ public class SellingManagerTest {
     private final String LOGIN_2 = "MyLogin";
 
     private final String MODEL_1 = "GTX 750 Ti";
-    private final double T_FLOPS_1 = 1.728;
-
     private final String MODEL_2 = "RTX 2080 Ti";
     private final String MODEL_3 = "Radeon Vega 56";
 
@@ -46,17 +44,18 @@ public class SellingManagerTest {
 
     @Test
     public void addGraphicsCardTest(){
+        double t_flops = 1.728;
         GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
         if (gpu!=null)
             sellingManager.deleteGraphicsCard(gpu);
 
-        gpu = new GraphicsCard(MODEL_1, T_FLOPS_1);
+        gpu = new GraphicsCard(MODEL_1, t_flops);
         sellingManager.addGraphicsCard(gpu);
 
         GraphicsCard retrievedGpu = sellingManager.findGraphicsCardByModel(MODEL_1);
 
         assertEquals(MODEL_1, retrievedGpu.getGraphicsCardInfo().getModel());
-        assertEquals(retrievedGpu.getGraphicsCardInfo().getTflops(), T_FLOPS_1, 0.0);
+        assertEquals(retrievedGpu.getGraphicsCardInfo().getTflops(), t_flops, 0.0);
         assertFalse(retrievedGpu.isSold());
     }
 
