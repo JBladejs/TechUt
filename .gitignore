@@ -10,6 +10,8 @@
 */.idea
 demo.log
 shdemo.iml
+*.xml
+
 
 # User-specific stuff
 .idea/**/workspace.xml
