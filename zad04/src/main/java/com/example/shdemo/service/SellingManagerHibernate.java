@@ -90,6 +90,14 @@ public class SellingManagerHibernate implements  SellingManager{
     }
 
     @Override
+    public void deleteGraphicsCardByProducer(Producer producer) {
+        List<GraphicsCard> toDelete = getAvailableGraphicsCardsByProducer(producer);
+        for (GraphicsCard gpu: toDelete) {
+            deleteGraphicsCard(gpu);
+        }
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<GraphicsCard> getAvailableGraphicsCards() {
         return sessionFactory.getCurrentSession().getNamedQuery("graphicsCard.available").list();

@@ -215,6 +215,37 @@ public class SellingManagerTest {
     }
 
     @Test
+    public void deleteGraphicsCardByProducerTest(){
+        List<GraphicsCard> retrievedGpus = sellingManager.getAvailableGraphicsCards();
+
+        for(GraphicsCard gpu : retrievedGpus){
+            sellingManager.deleteGraphicsCard(gpu);
+        }
+        assertEquals(0, sellingManager.getAvailableGraphicsCards().size());
+
+        GraphicsCard g1 = new GraphicsCard(MODEL_1);
+        GraphicsCard g2 = new GraphicsCard(MODEL_2);
+        GraphicsCard g3 = new GraphicsCard(MODEL_3);
+
+        Producer producer = new Producer(NAME_1);
+        g1.setProducer(producer);
+        g2.setProducer(producer);
+
+        sellingManager.addProducer(producer);
+        sellingManager.addGraphicsCard(g1);
+        sellingManager.addGraphicsCard(g2);
+        sellingManager.addGraphicsCard(g3);
+
+        retrievedGpus = sellingManager.getAvailableGraphicsCards();
+        assertEquals(3, retrievedGpus.size());
+
+        sellingManager.deleteGraphicsCardByProducer(producer);
+        retrievedGpus = sellingManager.getAvailableGraphicsCards();
+        assertEquals(1, retrievedGpus.size());
+        assertEquals(MODEL_3, retrievedGpus.get(0).getGraphicsCardInfo().getModel());
+    }
+
+    @Test
     public void getAvailableGraphicsCardsTest(){
         List<GraphicsCard> retrievedGpus = sellingManager.getAvailableGraphicsCards();
 

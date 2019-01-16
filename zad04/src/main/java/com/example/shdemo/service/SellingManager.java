@@ -20,6 +20,7 @@ public interface SellingManager {
 
     void addGraphicsCard(GraphicsCard gpu);
     void deleteGraphicsCard(GraphicsCard gpu);
+    void deleteGraphicsCardByProducer(Producer producer);
     List<GraphicsCard> getAvailableGraphicsCards();
     List<GraphicsCard> getAvailableGraphicsCardsByProducer(Producer producer);
     GraphicsCard findGraphicsCardByModel(String model);
