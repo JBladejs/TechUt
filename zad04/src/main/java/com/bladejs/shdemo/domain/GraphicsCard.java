@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "graphicsCard.available", query = "Select g from GraphicsCard g where g.sold = false"),
-        @NamedQuery(name = "graphicsCard.byProducer", query = "Select g from GraphicsCard g where g.model = :model")
+        @NamedQuery(name = "graphicsCard.byProducer", query = "Select g from GraphicsCard g where g.producer = :producer")
 })
 
 public class GraphicsCard {
