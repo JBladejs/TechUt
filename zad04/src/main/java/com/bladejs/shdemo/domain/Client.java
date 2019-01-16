@@ -5,6 +5,7 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
+        @NamedQuery(name = "client.all", query = "Select c from Client c"),
         @NamedQuery(name = "client.byLogin", query = "Select c from Client c where c.login = :login")
 })
 public class Client {
