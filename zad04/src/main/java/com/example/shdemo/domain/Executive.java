@@ -8,6 +8,11 @@ import javax.persistence.*;
 })
 public class Executive {
 
+    public Executive(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
