@@ -1,9 +1,6 @@
 package com.example.shdemo.service;
 
-import com.example.shdemo.domain.Client;
-import com.example.shdemo.domain.GraphicsCard;
-import com.example.shdemo.domain.GraphicsCardInfo;
-import com.example.shdemo.domain.Producer;
+import com.example.shdemo.domain.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +23,29 @@ public class SellingManagerHibernate implements  SellingManager{
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    @Override
+    public void addExecutive(Executive executive) {
+        executive.setId(null);
+        sessionFactory.getCurrentSession().persist(executive);
+    }
+
+    @Override
+    public void deleteExecutive(Executive executive) {
+        executive = (Executive) sessionFactory.getCurrentSession().get(Executive.class, executive.getId());
+        sessionFactory.getCurrentSession().delete(executive);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Executive> getAllExecutives() {
+        return sessionFactory.getCurrentSession().getNamedQuery("executive.all").list();
+    }
+
+    @Override
+    public Executive findExecutiveById(Long id) {
+        return (Executive) sessionFactory.getCurrentSession().get(Executive.class, id);
     }
 
     @Override
