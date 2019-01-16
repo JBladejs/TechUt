@@ -11,6 +11,11 @@ import java.util.List;
         @NamedQuery(name = "client.byLogin", query = "Select c from Client c where c.login = :login")
 })
 public class Client {
+
+    public Client(String login){
+        this.login = login;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
