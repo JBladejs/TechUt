@@ -30,11 +30,6 @@ public class SellingManagerHibernate implements  SellingManager{
     }
 
     @Override
-    public List<Client> getAllClients() {
-        return sessionFactory.getCurrentSession().getNamedQuery("client.all").list();
-    }
-
-    @Override
     public void deleteClient(Client client) {
         client = (Client) sessionFactory.getCurrentSession().get(Client.class, client.getId());
 
@@ -43,8 +38,19 @@ public class SellingManagerHibernate implements  SellingManager{
     }
 
     @Override
+    public List<Client> getAllClients() {
+        return sessionFactory.getCurrentSession().getNamedQuery("client.all").list();
+    }
+
+    @Override
     public Client findClientByLogin(String login) {
         return (Client) sessionFactory.getCurrentSession().getNamedQuery("client.byLogin").setString("login", login).uniqueResult();
     }
+
+    @Override
+    public Client findClientById(Long id) {
+        return (Client) sessionFactory.getCurrentSession().get(Client.class, id);
+    }
+
 
 }
