@@ -49,7 +49,7 @@ public class SellingManagerTest {
 
         Client retrievedClient = sellingManager.findClientByLogin(LOGIN_1);
 
-        //assertEquals("unknown", retrievedClient.getFirstName());
+        assertEquals("unknown", retrievedClient.getFirstName());
         assertEquals(LAST_NAME_1, retrievedClient.getLastName());
         assertEquals(LOGIN_1, retrievedClient.getLogin());
     }
