@@ -9,13 +9,14 @@ import javax.persistence.*;
 })
 
 public class GraphicsCard {
-    private Long id;
-
-    private Model model;
-    private Boolean sold = false;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private GraphicsCardInfo graphicsCardInfo;
+    private Boolean sold = false;
+
     public long getId() {
         return id;
     }
@@ -23,18 +24,17 @@ public class GraphicsCard {
         this.id = id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Model getModel() {
-        return model;
+    public GraphicsCardInfo getGraphicsCardInfo() {
+        return graphicsCardInfo;
     }
-    public void setModel(Model model) {
-        this.model = model;
+    public void setGraphicsCardInfo(GraphicsCardInfo graphicsCardInfo) {
+        this.graphicsCardInfo = graphicsCardInfo;
     }
 
     public boolean isSold() {
         return sold;
     }
-    public void setSold(boolean sold) {
-        this.sold = sold;
+    public void sold() {
+        this.sold = true;
     }
 }

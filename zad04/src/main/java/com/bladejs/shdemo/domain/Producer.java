@@ -1,16 +1,22 @@
 package com.bladejs.shdemo.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "producer.all", query = "Select p from Producer p")
+})
 public class Producer {
-    private long id;
-    private String name;
-    private String country;
-    private CEO ceo;
-    private GraphicsCard gpu;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column(unique=true, nullable=false)
+    private String name;
+    private String country="unknown";
+    @ManyToMany
+    private List<Executive> executives;
+
     public long getId() {
         return id;
     }
@@ -18,7 +24,6 @@ public class Producer {
         this.id = id;
     }
 
-    @Column(unique=true, nullable=false)
     public String getName() {
         return name;
     }
@@ -33,20 +38,11 @@ public class Producer {
         this.country = country;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public CEO getCeo() {
-        return ceo;
+    public List<Executive> getExecutives() {
+        return executives;
     }
-    public void setCeo(CEO ceo) {
-        this.ceo = ceo;
-    }
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public GraphicsCard getGpu() {
-        return gpu;
-    }
-    public void setGpu(GraphicsCard gpu) {
-        this.gpu = gpu;
+    public void setExecutives(List<Executive> executives) {
+        this.executives = executives;
     }
 
 }
