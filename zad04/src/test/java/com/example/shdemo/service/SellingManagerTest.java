@@ -26,7 +26,7 @@ public class SellingManagerTest {
     private final String LOGIN_1 = "Tester";
     private final String LOGIN_2 = "MyLogin";
 
-    private final String FIRST_NAME_1 = "Alan";
+    private final String FIRST_NAME_1 = "Patrick";
     private final String FIRST_NAME_2 = "Joseph";
 
     private final String LAST_NAME_1 = "Testowany";
