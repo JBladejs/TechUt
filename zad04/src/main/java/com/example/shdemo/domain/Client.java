@@ -1,6 +1,7 @@
 package com.example.shdemo.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,6 +10,10 @@ import java.util.List;
         @NamedQuery(name = "client.byLogin", query = "Select c from Client c where c.login = :login")
 })
 public class Client {
+
+    public Client(){
+        this.registrationDate = new Date();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +24,8 @@ public class Client {
     private List<GraphicsCard> graphicsCards;
     private String firstName="unknown";
     private String lastName="unknown";
+    @Temporal(TemporalType.DATE)
+    private Date registrationDate;
 
     public long getId() {
         return id;
@@ -53,5 +60,12 @@ public class Client {
     }
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }
