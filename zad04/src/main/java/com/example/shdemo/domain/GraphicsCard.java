@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "graphicsCard.available", query = "Select g from GraphicsCard g where g.sold = false"),
-        @NamedQuery(name = "graphicsCard.byProducer", query = "Select g from GraphicsCard g where g.producer = :producer")
+        @NamedQuery(name = "graphicsCard.byProducer", query = "Select g from GraphicsCard g where g.producer.name = :producer")
 })
 
 public class GraphicsCard {
@@ -43,7 +43,7 @@ public class GraphicsCard {
     public boolean isSold() {
         return sold;
     }
-    public void sold() {
-        this.sold = true;
+    public void setSold(Boolean sold){
+        this.sold=sold;
     }
 }

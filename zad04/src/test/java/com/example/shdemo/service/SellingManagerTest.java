@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/beans.xml" })
-@TransactionConfiguration(transactionManager = "txManager", defaultRollback = true)
+@TransactionConfiguration(transactionManager = "txManager")
 @Transactional
 public class SellingManagerTest {
 
@@ -57,6 +57,7 @@ public class SellingManagerTest {
 
     @Test
     public void deleteClientTest() {
+        //to test further
         Client client = sellingManager.findClientByLogin(LOGIN_1);
         if (client!=null)
             sellingManager.deleteClient(client);
