@@ -1,10 +1,10 @@
-package com.bladejs.shdemo.domain;
+package com.example.shdemo.domain;
 
 import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "graphicsCardModel.all", query = "Select m from GraphicsCardModel m")
+        @NamedQuery(name = "graphicsCardInfo.all", query = "Select m from GraphicsCardInfo m")
 })
 public class GraphicsCardInfo {
     @Id

@@ -1,4 +1,4 @@
-package com.bladejs.shdemo.domain;
+package com.example.shdemo.domain;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,8 +17,8 @@ public class Client {
     private String login;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<GraphicsCard> graphicsCards;
-    private String firstName="unkown";
-    private String lastName="unkown";
+    private String firstName="unknown";
+    private String lastName="unknown";
 
     public long getId() {
         return id;

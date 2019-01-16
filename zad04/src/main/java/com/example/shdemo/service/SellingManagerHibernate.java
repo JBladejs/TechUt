@@ -1,6 +1,6 @@
-package com.bladejs.shdemo.service;
+package com.example.shdemo.service;
 
-import com.bladejs.shdemo.domain.Client;
+import com.example.shdemo.domain.Client;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
