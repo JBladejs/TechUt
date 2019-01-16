@@ -39,13 +39,14 @@ public class SellingManagerHibernate implements  SellingManager{
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Producer> getAllProducers() {
-        return null;
+        return sessionFactory.getCurrentSession().getNamedQuery("producer.all").list();
     }
 
     @Override
     public Producer findProducerById(Long id) {
-        return null;
+        return (Producer) sessionFactory.getCurrentSession().get(Producer.class, id);
     }
 
     @Override
