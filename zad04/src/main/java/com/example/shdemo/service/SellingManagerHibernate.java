@@ -114,7 +114,6 @@ public class SellingManagerHibernate implements  SellingManager{
                 break;
             }
         }
-
         if(toRemove != null)
             client.getGraphicsCards().remove(toRemove);
         gpu.setSold(false);
