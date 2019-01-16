@@ -15,6 +15,7 @@ public interface SellingManager {
     void addGraphicsCard(GraphicsCard gpu);
     void deleteGraphicsCard(GraphicsCard gpu);
     List<GraphicsCard> getAvailableGraphicsCards();
+    List<GraphicsCard> getAvailableGraphicsCardsByProducer(Producer producer);
     GraphicsCard findGraphicsCardByModel(String model);
     GraphicsCard findGraphicsCardById(Long id);
 
@@ -26,5 +27,6 @@ public interface SellingManager {
 
     void sellGraphicsCard(Long gpuId, Long clientId);
     void takeBackGraphicsCard(GraphicsCard gpu, Client client);
+
 
 }

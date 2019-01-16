@@ -190,6 +190,38 @@ public class SellingManagerTest {
     }
 
     @Test
+    public void getAvailableGraphicsCardsByProducerTest(){
+        List<GraphicsCard> retrievedGpus = sellingManager.getAvailableGraphicsCards();
+
+        for(GraphicsCard gpu : retrievedGpus){
+            sellingManager.deleteGraphicsCard(gpu);
+        }
+        assertEquals(0, sellingManager.getAvailableGraphicsCards().size());
+
+        GraphicsCard g1 = new GraphicsCard(MODEL_1);
+        GraphicsCard g2 = new GraphicsCard(MODEL_2);
+        GraphicsCard g3 = new GraphicsCard(MODEL_3);
+
+        Producer p1 = new Producer(NAME_1);
+        Producer p2 = new Producer(NAME_2);
+
+        g1.setProducer(p1);
+        g2.setProducer(p1);
+        g3.setProducer(p2);
+
+        sellingManager.addGraphicsCard(g1);
+        sellingManager.addGraphicsCard(g2);
+        sellingManager.addGraphicsCard(g3);
+
+        retrievedGpus = sellingManager.getAvailableGraphicsCardsByProducer(p1);
+        assertEquals(2, retrievedGpus.size());
+        assertEquals(NAME_1, retrievedGpus.get(0).getProducer().getName());
+        assertEquals(NAME_1, retrievedGpus.get(1).getProducer().getName());
+        assertEquals(MODEL_1, retrievedGpus.get(0).getGraphicsCardInfo().getModel());
+        assertEquals(MODEL_2, retrievedGpus.get(1).getGraphicsCardInfo().getModel());
+    }
+
+    @Test
     public void findGraphicsCardByModelTest(){
         GraphicsCard gpu = sellingManager.findGraphicsCardByModel(MODEL_1);
         if (gpu!=null)

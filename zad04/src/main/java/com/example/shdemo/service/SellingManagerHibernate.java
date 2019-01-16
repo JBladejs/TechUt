@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -71,6 +73,17 @@ public class SellingManagerHibernate implements  SellingManager{
     @SuppressWarnings("unchecked")
     public List<GraphicsCard> getAvailableGraphicsCards() {
         return sessionFactory.getCurrentSession().getNamedQuery("graphicsCard.available").list();
+    }
+
+    @Override
+    public List<GraphicsCard> getAvailableGraphicsCardsByProducer(Producer producer) {
+        List<GraphicsCard> availableGpus = getAvailableGraphicsCards();
+        List<GraphicsCard> resultSet = new ArrayList<GraphicsCard>();
+        for (GraphicsCard gpu: availableGpus) {
+            if(gpu.getProducer()==producer)
+                resultSet.add(gpu);
+        }
+        return resultSet;
     }
 
     @Override
