@@ -10,7 +10,7 @@ import java.util.List;
 public class Producer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     @Column(unique=true, nullable=false)
     private String name;
     private String country="unknown";
@@ -20,7 +20,7 @@ public class Producer {
     public long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
