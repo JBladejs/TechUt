@@ -95,8 +95,8 @@ public class SellingManagerHibernate implements  SellingManager{
 
     @Override
     public void sellGraphicsCard( Long gpuId, Long clientId) {
-        Client client = (Client) sessionFactory.getCurrentSession().get(Client.class, clientId);
-        GraphicsCard gpu = (GraphicsCard) sessionFactory.getCurrentSession().get(GraphicsCard.class, gpuId);
+        Client client = findClientById(clientId);
+        GraphicsCard gpu = findGraphicsCardById(gpuId);
         gpu.setSold(true);
         client.getGraphicsCards().add(gpu);
     }
