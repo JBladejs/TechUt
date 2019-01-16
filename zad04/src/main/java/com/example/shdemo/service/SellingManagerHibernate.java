@@ -26,28 +26,28 @@ public class SellingManagerHibernate implements  SellingManager{
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
-    public void addProducer(Producer producer) {
-        producer.setId(null);
-        sessionFactory.getCurrentSession().persist(producer);
-    }
-
-    @Override
-    public void deleteProducer(Producer producer) {
-        producer = (Producer) sessionFactory.getCurrentSession().get(Producer.class, producer.getId());
-        sessionFactory.getCurrentSession().delete(producer);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public List<Producer> getAllProducers() {
-        return sessionFactory.getCurrentSession().getNamedQuery("producer.all").list();
-    }
-
-    @Override
-    public Producer findProducerById(Long id) {
-        return (Producer) sessionFactory.getCurrentSession().get(Producer.class, id);
-    }
+//    @Override
+//    public void addProducer(Producer producer) {
+//        producer.setId(null);
+//        sessionFactory.getCurrentSession().persist(producer);
+//    }
+//
+//    @Override
+//    public void deleteProducer(Producer producer) {
+//        producer = (Producer) sessionFactory.getCurrentSession().get(Producer.class, producer.getId());
+//        sessionFactory.getCurrentSession().delete(producer);
+//    }
+//
+//    @Override
+//    @SuppressWarnings("unchecked")
+//    public List<Producer> getAllProducers() {
+//        return sessionFactory.getCurrentSession().getNamedQuery("producer.all").list();
+//    }
+//
+//    @Override
+//    public Producer findProducerById(Long id) {
+//        return (Producer) sessionFactory.getCurrentSession().get(Producer.class, id);
+//    }
 
     @Override
     public void addGraphicsCard(GraphicsCard gpu) {
@@ -71,9 +71,8 @@ public class SellingManagerHibernate implements  SellingManager{
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public List<GraphicsCard> getGraphicsCardByProducer(Producer producer) {
-        return sessionFactory.getCurrentSession().getNamedQuery("graphicsCard.byProducer").setString("producer", producer.getName()).list();
+    public GraphicsCard findGraphicsCardByModel(String model) {
+        return (GraphicsCard) sessionFactory.getCurrentSession().getNamedQuery("graphicsCard.byModel").setString("model", model);
     }
 
     @Override

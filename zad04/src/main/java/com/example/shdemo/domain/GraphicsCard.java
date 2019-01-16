@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "graphicsCard.available", query = "Select g from GraphicsCard g where g.sold = false"),
-        @NamedQuery(name = "graphicsCard.byProducer", query = "Select g from GraphicsCard g where g.producer.name = :producer")
+        @NamedQuery(name = "graphicsCard.byModel", query = "Select g from GraphicsCard g where g.graphicsCardInfo.model = :model")
 })
 
 public class GraphicsCard {
@@ -21,7 +21,7 @@ public class GraphicsCard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private GraphicsCardInfo graphicsCardInfo;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Producer producer;

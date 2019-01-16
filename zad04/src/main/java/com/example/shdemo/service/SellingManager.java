@@ -7,15 +7,15 @@ import com.example.shdemo.domain.Producer;
 import java.util.List;
 
 public interface SellingManager {
-    void addProducer(Producer producer);
-    void deleteProducer(Producer producer);
-    List<Producer> getAllProducers();
-    Producer findProducerById(Long id);
+//    void addProducer(Producer producer);
+//    void deleteProducer(Producer producer);
+//    List<Producer> getAllProducers();
+//    Producer findProducerById(Long id);
 
     void addGraphicsCard(GraphicsCard gpu);
     void deleteGraphicsCard(GraphicsCard gpu);
     List<GraphicsCard> getAllGraphicsCards();
-    List<GraphicsCard> getGraphicsCardByProducer(Producer producer);
+    GraphicsCard findGraphicsCardByModel(String model);
     GraphicsCard findGraphicsCardById(Long id);
 
     void addClient(Client client);
