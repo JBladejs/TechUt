@@ -9,6 +9,16 @@ import java.util.List;
         @NamedQuery(name = "producer.all", query = "Select p from Producer p")
 })
 public class Producer {
+
+    public Producer(String name, String country){
+        this.name = name;
+        this.country = country;
+    }
+
+    public Producer(String name){
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

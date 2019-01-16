@@ -37,9 +37,24 @@ public class SellingManagerTest {
     private final String MODEL_2 = "RTX 2080 Ti";
     private final String MODEL_3 = "Radeon Vega 56";
 
+    private final String NAME_1 = "Nvidia";
+
+    private final String COUNTRY_1 = "United States";
+
     @Test
     public void addProducerTest(){
+        List<Producer> receivedProducers = sellingManager.getAllProducers();
+        for (Producer producer: receivedProducers) {
+            if(producer.getName().equals(NAME_1))
+                sellingManager.deleteProducer(producer);
+        }
 
+        Producer producer = new Producer(NAME_1, COUNTRY_1);
+        sellingManager.addProducer(producer);
+
+        Producer receivedProducer = sellingManager.findProducerById(producer.getId());
+        assertEquals(NAME_1, receivedProducer.getName());
+        assertEquals(COUNTRY_1, receivedProducer.getCountry());
     }
 
     @Test
@@ -123,11 +138,13 @@ public class SellingManagerTest {
 
     @Test
     public void addClientTest(){
+        String firstName = "Alan";
         Client client = sellingManager.findClientByLogin(LOGIN_1);
         if (client!=null)
             sellingManager.deleteClient(client);
 
         client = new Client(LOGIN_1);
+        client.setFirstName(firstName);
         client.setLastName(LAST_NAME_1);
 
         sellingManager.addClient(client);
@@ -136,6 +153,7 @@ public class SellingManagerTest {
 
         assertEquals("unknown", retrievedClient.getFirstName());
         assertEquals(LAST_NAME_1, retrievedClient.getLastName());
+        assertEquals(firstName, retrievedClient.getFirstName());
         assertEquals(LOGIN_1, retrievedClient.getLogin());
     }
 
