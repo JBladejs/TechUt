@@ -1,14 +1,9 @@
 package com.example.shdemo.service;
 
-import com.example.shdemo.domain.Client;
-import com.example.shdemo.domain.GraphicsCard;
-import com.example.shdemo.domain.GraphicsCardInfo;
-import com.example.shdemo.domain.Producer;
-import org.hibernate.SessionFactory;
+import com.example.shdemo.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
@@ -29,15 +24,20 @@ public class SellingManagerTest {
     SellingManager sellingManager;
 
     private final String LOGIN_1 = "Tester";
-    private final String LAST_NAME_1 = "Testowany";
-
     private final String LOGIN_2 = "MyLogin";
+
+    private final String FIRST_NAME_1 = "Alan";
+    private final String FIRST_NAME_2 = "Joseph";
+
+    private final String LAST_NAME_1 = "Testowany";
+    private final String LAST_NAME_2 = "Kowalski";
 
     private final String MODEL_1 = "GTX 750 Ti";
     private final String MODEL_2 = "RTX 2080 Ti";
     private final String MODEL_3 = "Radeon Vega 56";
 
     private final String NAME_1 = "Nvidia";
+    private final String NAME_2 = "AMD";
 
     private final String COUNTRY_1 = "United States";
 
@@ -49,12 +49,88 @@ public class SellingManagerTest {
                 sellingManager.deleteProducer(producer);
         }
 
+        Executive e1 = new Executive(FIRST_NAME_1, LAST_NAME_1);
+        Executive e2 = new Executive(FIRST_NAME_2, LAST_NAME_2);
+
         Producer producer = new Producer(NAME_1, COUNTRY_1);
+        producer.getExecutives().add(e1);
+        producer.getExecutives().add(e2);
+
         sellingManager.addProducer(producer);
 
         Producer receivedProducer = sellingManager.findProducerById(producer.getId());
         assertEquals(NAME_1, receivedProducer.getName());
         assertEquals(COUNTRY_1, receivedProducer.getCountry());
+
+        assertEquals(2, receivedProducer.getExecutives().size());
+        assertEquals(FIRST_NAME_1, receivedProducer.getExecutives().get(0).getFirstName());
+        assertEquals(LAST_NAME_1, receivedProducer.getExecutives().get(0).getLastName());
+        assertEquals(FIRST_NAME_2, receivedProducer.getExecutives().get(1).getFirstName());
+        assertEquals(LAST_NAME_2, receivedProducer.getExecutives().get(1).getLastName());
+    }
+
+    @Test
+    public void deleteProducerTest(){
+        List<Producer> receivedProducers = sellingManager.getAllProducers();
+        for (Producer producer: receivedProducers) {
+            if(producer.getName().equals(NAME_2))
+                sellingManager.deleteProducer(producer);
+        }
+
+        Producer producer = new Producer(NAME_2, COUNTRY_1);
+        sellingManager.addProducer(producer);
+
+        assertEquals(NAME_2, sellingManager.findProducerById(producer.getId()).getName());
+
+        sellingManager.deleteProducer(producer);
+        assertNull(sellingManager.findProducerById(producer.getId()));
+    }
+
+    @Test
+    public void getAllProducersTest(){
+        List<Producer> receivedProducers = sellingManager.getAllProducers();
+        for (Producer producer: receivedProducers) {
+            sellingManager.deleteProducer(producer);
+        }
+        receivedProducers = sellingManager.getAllProducers();
+
+        assertEquals(0, receivedProducers.size());
+
+        Executive e1 = new Executive(FIRST_NAME_1, LAST_NAME_1);
+        Executive e2 = new Executive(FIRST_NAME_2, LAST_NAME_2);
+
+        Producer p1 = new Producer(NAME_1);
+        Producer p2 = new Producer(NAME_2);
+
+        p1.getExecutives().add(e1);
+        p1.getExecutives().add(e2);
+
+        p2.getExecutives().add(e2);
+
+        sellingManager.addProducer(p1);
+        sellingManager.addProducer(p2);
+
+        receivedProducers = sellingManager.getAllProducers();
+
+        assertEquals(2, receivedProducers.size());
+        assertEquals(NAME_1, receivedProducers.get(0).getName());
+        assertEquals(NAME_2, receivedProducers.get(1).getName());
+        assertEquals(2, receivedProducers.get(0).getExecutives().size());
+        assertEquals(1, receivedProducers.get(1).getExecutives().size());
+    }
+
+    @Test
+    public void findProducerByIdTest(){
+        List<Producer> receivedProducers = sellingManager.getAllProducers();
+        for (Producer producer: receivedProducers) {
+            if(producer.getName().equals(NAME_1))
+                sellingManager.deleteProducer(producer);
+        }
+
+        Producer producer = new Producer(NAME_1);
+
+        sellingManager.addProducer(producer);
+        assertEquals(producer, sellingManager.findProducerById(producer.getId()));
     }
 
     @Test
@@ -138,22 +214,20 @@ public class SellingManagerTest {
 
     @Test
     public void addClientTest(){
-        String firstName = "Alan";
         Client client = sellingManager.findClientByLogin(LOGIN_1);
         if (client!=null)
             sellingManager.deleteClient(client);
 
         client = new Client(LOGIN_1);
-        client.setFirstName(firstName);
+        client.setFirstName(FIRST_NAME_1);
         client.setLastName(LAST_NAME_1);
 
         sellingManager.addClient(client);
 
         Client retrievedClient = sellingManager.findClientByLogin(LOGIN_1);
 
-        assertEquals("unknown", retrievedClient.getFirstName());
         assertEquals(LAST_NAME_1, retrievedClient.getLastName());
-        assertEquals(firstName, retrievedClient.getFirstName());
+        assertEquals(FIRST_NAME_1, retrievedClient.getFirstName());
         assertEquals(LOGIN_1, retrievedClient.getLogin());
     }
 
@@ -191,7 +265,6 @@ public class SellingManagerTest {
         assertEquals(0, sellingManager.getAllClients().size());
 
         Client c1 = new Client(LOGIN_1);
-        c1.setLastName(LAST_NAME_1);
         Client c2 = new Client(LOGIN_2);
 
         sellingManager.addClient(c1);
@@ -201,7 +274,6 @@ public class SellingManagerTest {
         assertEquals(2, retrievedClients.size());
         assertEquals(LOGIN_1, retrievedClients.get(0).getLogin());
         assertEquals(LOGIN_2, retrievedClients.get(1).getLogin());
-        assertEquals(LAST_NAME_1, retrievedClients.get(0).getLastName());
     }
 
     @Test
