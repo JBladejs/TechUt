@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "car.available", query = "Select g from GraphicsCard g where g.sold = false")
+        @NamedQuery(name = "graphicsCard.available", query = "Select g from GraphicsCard g where g.sold = false"),
+        @NamedQuery(name = "graphicsCard.byModel", query = "Select g from GraphicsCard g where g.model = :model")
 })
 
 public class GraphicsCard {
     private Long id;
 
     private Model model;
-    private double tFlops;
     private Boolean sold = false;
 
     @Id
@@ -23,19 +23,12 @@ public class GraphicsCard {
         this.id = id;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public Model getModel() {
         return model;
     }
     public void setModel(Model model) {
         this.model = model;
-    }
-
-    public double getTflops() {
-        return tFlops;
-    }
-    public void setTflops(double tflops) {
-        this.tFlops = tflops;
     }
 
     public boolean isSold() {
