@@ -1,16 +1,18 @@
 package com.bladejs.shdemo.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "car.available", query = "Select g from GraphicsCard g where g.sold = false")
+})
 
 public class GraphicsCard {
-    private long id;
+    private Long id;
 
-    private String model;
-    private double tflops;
-    private float price;
+    private Model model;
+    private double tFlops;
+    private Boolean sold = false;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,25 +23,25 @@ public class GraphicsCard {
         this.id = id;
     }
 
-    @Column(nullable = false)
-    public String getModel() {
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Model getModel() {
         return model;
     }
-    public void setModel(String model) {
+    public void setModel(Model model) {
         this.model = model;
     }
 
     public double getTflops() {
-        return tflops;
+        return tFlops;
     }
     public void setTflops(double tflops) {
-        this.tflops = tflops;
+        this.tFlops = tflops;
     }
 
-    public float getPrice() {
-        return price;
+    public boolean isSold() {
+        return sold;
     }
-    public void setPrice(float price) {
-        this.price = price;
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }
